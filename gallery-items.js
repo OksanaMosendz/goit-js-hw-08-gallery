@@ -65,8 +65,9 @@ export default [
 ];
 
 import images from './gallery-items.js';
-console.log(images);
-const gallery=document.querySelector('.gallery')
+
+const gallery=document.querySelector('.gallery');
+
 const createGallery=images.map(({preview,original,description})=>
  
 `<li class="gallery__item">
@@ -86,3 +87,16 @@ const createGallery=images.map(({preview,original,description})=>
 );
 
 gallery.innerHTML=createGallery.join('');
+
+
+const onImageClick=(e)=>{
+  e.preventDefault();
+
+  if (e.target.nodeName!=='IMG'){return;}
+  console.log('Клик на  картинку');
+
+}
+
+
+  
+gallery.addEventListener('click',onImageClick);
