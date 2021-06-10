@@ -73,27 +73,14 @@ const lightboxImage=document.querySelector('.lightbox__image');
 const lightboxCloseBtn=document.querySelector(`button[data-action="close-lightbox"]`);
 const lightboxOverlay=document.querySelector('.lightbox__overlay');
 
-const createGallery=images.map(({preview,original,description})=>
- 
-`<li class="gallery__item">
-  <a
-    class="gallery__link"
-    href=${original}
-  >
-    <img
-      class="gallery__image"
-      src=${preview}
-      data-source=${original}
-      alt=${description}
-    />
-  </a>
-</li>`
-
-);
-
-gallery.innerHTML=createGallery.join('');
-
-// const galleryImage=document.querySelector('.gallery__image');
+gallery.innerHTML=images.map(({preview,original,description})=>
+      `<li class="gallery__item">
+         <a class="gallery__link" href=${original}>
+            <img class="gallery__image" src=${preview} 
+            data-source=${original} alt=${description}/>
+         </a>
+      </li>`)
+      .join('');
 
 const onImageClick=(e)=>{
   e.preventDefault();
@@ -129,25 +116,5 @@ const pressEscToCloseLightbox=(e)=>{
   }
 }
 
-
 gallery.addEventListener('click',onImageClick);
 
-
-
-
-// function closeOnEscape(callback) {
-//   document.addEventListener(
-    
-//     'keydown',
-
-//     event => {
-//       if (event.code === 'Escape') {
-//         callback();
-//       }
-//     },
-   
-//     {
-//       once: true,
-//     }
-//   );
-// }
