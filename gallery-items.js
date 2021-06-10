@@ -63,3 +63,26 @@ export default [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
+import images from './gallery-items.js';
+console.log(images);
+const gallery=document.querySelector('.gallery')
+const createGallery=images.map(({preview,original,description})=>
+ 
+`<li class="gallery__item">
+  <a
+    class="gallery__link"
+    href=${original}
+  >
+    <img
+      class="gallery__image"
+      src=${preview}
+      data-source=${original}
+      alt=${description}
+    />
+  </a>
+</li>`
+
+);
+
+gallery.innerHTML=createGallery.join('');
