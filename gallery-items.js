@@ -68,6 +68,9 @@ import images from './gallery-items.js';
 
 const gallery=document.querySelector('.gallery');
 
+const lightbox =document.querySelector('.js-lightbox');
+const lightboxImage=document.querySelector('.lightbox__image');
+const lightboxCloseBtn=document.querySelector(`button[data-action="close-lightbox"]`);
 const createGallery=images.map(({preview,original,description})=>
  
 `<li class="gallery__item">
@@ -88,15 +91,26 @@ const createGallery=images.map(({preview,original,description})=>
 
 gallery.innerHTML=createGallery.join('');
 
+const galleryImage=document.querySelector('.gallery__image');
 
 const onImageClick=(e)=>{
   e.preventDefault();
-
   if (e.target.nodeName!=='IMG'){return;}
-  console.log('Клик на  картинку');
-
+  openLightbox();
 }
 
 
-  
+const openLightbox=()=> {
+  lightbox.classList.add('is-open');
+  lightboxImage.src=galleryImage.dataset.source;
+  lightboxImage.alt=galleryImage.alt;
+}
+
+const closeLightbox=()=> {
+  lightbox.classList.remove('is-open');
+  lightboxImage.src='';
+  lightboxImage.alt='';
+}
+
 gallery.addEventListener('click',onImageClick);
+lightboxCloseBtn.addEventListener('click',closeLightbox);
