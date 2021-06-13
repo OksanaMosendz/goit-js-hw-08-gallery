@@ -8,8 +8,11 @@ const lightboxCloseBtn=document.querySelector(`button[data-action="close-lightbo
 const lightboxOverlay=document.querySelector('.lightbox__overlay');
 
 let index=0;
-const getIndex=()=>{for(let i=0; i<images.length; i+=1){
-      return index+=1;}}
+const getIndex=()=>{
+  for(let i=0; i<images.length; i+=1){
+    return index+=1;
+  }
+}
 
 const allImages=images.map(({preview,original,description})=>
       `<li class="gallery__item">
@@ -27,7 +30,9 @@ gallery.innerHTML=allImages.join('');
 const onImageClick=(e)=>{
   e.preventDefault();
   const galleryImg=e.target;
-  if (e.target.nodeName!=='IMG'){return;}
+  if (e.target.nodeName!=='IMG'){
+    return;
+  }
   openLightbox(galleryImg);
 }
 
@@ -66,25 +71,24 @@ const pressEscToCloseLightbox=(e)=>{
   }
 }
 
+const setNewlightboxImage=(newImage)=>{
+  lightboxImage.src=newImage.dataset.source;
+  lightboxImage.alt=newImage.alt;
+  lightboxImage.dataset.index=newImage.dataset.index;
+}
+
 const pressArrowRightLightbox=(e)=>{
   const nextImageIndex=`${Number(lightboxImage.dataset.index)+1}`;
   const nextImage=document.querySelector(`img[data-index='${nextImageIndex}']`);
     
-  if (e.code === 'ArrowRight'&nextImageIndex<allImages.length){
-    lightboxImage.src=nextImage.dataset.source;
-    lightboxImage.alt=nextImage.alt;
-    lightboxImage.dataset.index=nextImage.dataset.index;
-  }
+  if (e.code === 'ArrowRight'&nextImageIndex<allImages.length)
+    setNewlightboxImage(nextImage);
 }
 
 const pressArrowLeftLightbox=(e)=>{
   const previousImageIndex=`${Number(lightboxImage.dataset.index)-1}`;
   const previousImage=document.querySelector(`img[data-index='${previousImageIndex}']`);
     
-  if ( e.code === 'ArrowLeft'&previousImageIndex>0){
-    lightboxImage.src=previousImage.dataset.source;
-    lightboxImage.alt=previousImage.alt;
-    lightboxImage.dataset.index=previousImage.dataset.index;
-  }
+  if ( e.code === 'ArrowLeft'&previousImageIndex>=0)
+    setNewlightboxImage(previousImage);
 }
-
