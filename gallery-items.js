@@ -74,7 +74,7 @@ const lightboxCloseBtn=document.querySelector(`button[data-action="close-lightbo
 const lightboxOverlay=document.querySelector('.lightbox__overlay');
 
 let index=0;
-const ttt=()=>{for(let i=0; i<images.length; i+=1){
+const getIndex=()=>{for(let i=0; i<images.length; i+=1){
  return index+=1;}}
 
 const allImages=images.map(({preview,original,description})=>
@@ -82,7 +82,7 @@ const allImages=images.map(({preview,original,description})=>
          <a class="gallery__link" href=${original}>
             <img class="gallery__image" src=${preview} 
             data-source=${original} alt=${description}
-            data-index=${ttt()}>
+            data-index=${getIndex()-1}>
          </a>
       </li>`)
 
@@ -128,29 +128,24 @@ const pressEscToCloseLightbox=(e)=>{
   }
 }
 
-
-
-
 const pressArrowRightLightbox=(e)=>{
-  if (e.code === 'ArrowRight') {
-    const nextimageindex=`${Number(lightboxImage.dataset.index)+1}`;
-    const crrentImage=document.querySelector['data-index=`${Number(lightboxImage.dataset.index)+1}`'];
-    console.log (`${Number(lightboxImage.dataset.index)+1}`);
-    // lightboxImage.src=;
-    } 
-  
+    const nextImageIndex=`${Number(lightboxImage.dataset.index)+1}`;
+    const nextImage=document.querySelector(`img[data-index='${nextImageIndex}']`);
+    
+    if (e.code === 'ArrowRight'&nextImageIndex<allImages.length){
+    lightboxImage.src=nextImage.dataset.source;
+    lightboxImage.alt=nextImage.alt;
+    lightboxImage.dataset.index=nextImage.dataset.index;}
 }
 
 const pressArrowLeftLightbox=(e)=>{
-  if (e.code === 'ArrowLeft') {
-    getPreviousLeftPicture();
-  }
-}
-
-const getNextRightPicture =()=>{
-
-}
-
-const getPreviousLeftPicture =()=>{
+    const previousImageIndex=`${Number(lightboxImage.dataset.index)-1}`;
+    const previousImage=document.querySelector(`img[data-index='${previousImageIndex}']`);
+    
+    if ( e.code === 'ArrowLeft'&previousImageIndex>0){
+    lightboxImage.src=previousImage.dataset.source;
+    lightboxImage.alt=previousImage.alt;
+    lightboxImage.dataset.index=previousImage.dataset.index;}
   
 }
+
