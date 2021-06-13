@@ -73,14 +73,21 @@ const lightboxImage=document.querySelector('.lightbox__image');
 const lightboxCloseBtn=document.querySelector(`button[data-action="close-lightbox"]`);
 const lightboxOverlay=document.querySelector('.lightbox__overlay');
 
-gallery.innerHTML=images.map(({preview,original,description})=>
+let index=0;
+const ttt=()=>{for(let i=0; i<images.length; i+=1){
+ return index+=1;}}
+
+const allImages=images.map(({preview,original,description})=>
       `<li class="gallery__item">
          <a class="gallery__link" href=${original}>
             <img class="gallery__image" src=${preview} 
-            data-source=${original} alt=${description}/>
+            data-source=${original} alt=${description}
+            data-index=${ttt()}>
          </a>
       </li>`)
-      .join('');
+
+  gallery.innerHTML=allImages.join('');
+
 
 const onImageClick=(e)=>{
   e.preventDefault();
@@ -89,21 +96,26 @@ const onImageClick=(e)=>{
   openLightbox(galleryImage);
 }
 
+gallery.addEventListener('click',onImageClick);
 
 const openLightbox=(galleryImage)=> {
   lightbox.classList.add('is-open');
   lightboxImage.src=galleryImage.dataset.source;
   lightboxImage.alt=galleryImage.alt;
+  lightboxImage.dataset.index=galleryImage.dataset.index;
 
   lightboxCloseBtn.addEventListener('click',closeLightbox);
   lightboxOverlay.addEventListener('click',closeLightbox);
   document.addEventListener('keydown',pressEscToCloseLightbox);
+  document.addEventListener('keydown',pressArrowRightLightbox);
+  document.addEventListener('keydown',pressArrowLeftLightbox);
 }
 
 const closeLightbox=()=> {
   lightbox.classList.remove('is-open');
   lightboxImage.src='';
   lightboxImage.alt='';
+  lightboxImage.dataset.index='';
 
   lightboxCloseBtn.removeEventListener;
   lightboxOverlay.removeEventListener;
@@ -116,5 +128,29 @@ const pressEscToCloseLightbox=(e)=>{
   }
 }
 
-gallery.addEventListener('click',onImageClick);
 
+
+
+const pressArrowRightLightbox=(e)=>{
+  if (e.code === 'ArrowRight') {
+    const nextimageindex=`${Number(lightboxImage.dataset.index)+1}`;
+    const crrentImage=document.querySelector['data-index=`${Number(lightboxImage.dataset.index)+1}`'];
+    console.log (`${Number(lightboxImage.dataset.index)+1}`);
+    // lightboxImage.src=;
+    } 
+  
+}
+
+const pressArrowLeftLightbox=(e)=>{
+  if (e.code === 'ArrowLeft') {
+    getPreviousLeftPicture();
+  }
+}
+
+const getNextRightPicture =()=>{
+
+}
+
+const getPreviousLeftPicture =()=>{
+  
+}
