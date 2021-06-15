@@ -38,12 +38,15 @@ const onImageClick=(e)=>{
 
 gallery.addEventListener('click',onImageClick);
 
+const setNewlightboxImage=(src="", alt = "", index = "")=>{
+  lightboxImage.src=src;
+  lightboxImage.alt=alt;
+  lightboxImage.dataset.index=index;
+}
+
 const openLightbox=(galleryImg)=> {
   lightbox.classList.add('is-open');
-  
-  lightboxImage.src=galleryImg.dataset.source;
-  lightboxImage.alt=galleryImg.alt;
-  lightboxImage.dataset.index=galleryImg.dataset.index;
+  setNewlightboxImage(galleryImg.dataset.source, galleryImg.alt, galleryImg.dataset.index);
 
   body.style.overflow='hidden';
 
@@ -56,9 +59,7 @@ const openLightbox=(galleryImg)=> {
 
 const closeLightbox=()=> {
   lightbox.classList.remove('is-open');
-  lightboxImage.src='';
-  lightboxImage.alt='';
-  lightboxImage.dataset.index='';
+  setNewlightboxImage();
 
   lightboxCloseBtn.removeEventListener;
   lightboxOverlay.removeEventListener;
@@ -71,18 +72,12 @@ const pressEscToCloseLightbox=(e)=>{
   }
 }
 
-const setNewlightboxImage=(newImage)=>{
-  lightboxImage.src=newImage.dataset.source;
-  lightboxImage.alt=newImage.alt;
-  lightboxImage.dataset.index=newImage.dataset.index;
-}
-
 const pressArrowRightLightbox=(e)=>{
   const nextImageIndex=`${Number(lightboxImage.dataset.index)+1}`;
   const nextImage=document.querySelector(`img[data-index='${nextImageIndex}']`);
     
   if (e.code === 'ArrowRight'&nextImageIndex<allImages.length)
-    setNewlightboxImage(nextImage);
+  setNewlightboxImage(nextImage.dataset.source,nextImage.alt,nextImage.dataset.index);
 }
 
 const pressArrowLeftLightbox=(e)=>{
@@ -90,5 +85,5 @@ const pressArrowLeftLightbox=(e)=>{
   const previousImage=document.querySelector(`img[data-index='${previousImageIndex}']`);
     
   if ( e.code === 'ArrowLeft'&previousImageIndex>=0)
-    setNewlightboxImage(previousImage);
+  setNewlightboxImage(previousImage.dataset.source,previousImage.alt,previousImage.dataset.index);;
 }
