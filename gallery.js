@@ -38,7 +38,7 @@ const onImageClick=(e)=>{
 
 gallery.addEventListener('click',onImageClick);
 
-const setNewlightboxImage=(src="", alt = "", index = "")=>{
+const setNewlightboxImage=(src="",alt = "",index = "")=>{
   lightboxImage.src=src;
   lightboxImage.alt=alt;
   lightboxImage.dataset.index=index;
@@ -85,5 +85,5 @@ const pressArrowLeftLightbox=(e)=>{
   const previousImage=document.querySelector(`img[data-index='${previousImageIndex}']`);
     
   if ( e.code === 'ArrowLeft'&previousImageIndex>=0)
-  setNewlightboxImage(previousImage.dataset.source,previousImage.alt,previousImage.dataset.index);;
+  setNewlightboxImage(previousImage.dataset.source,previousImage.alt,previousImage.dataset.index);
 }
